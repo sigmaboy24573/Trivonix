@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Trivonix</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .btn { padding: 10px 20px; background: #5865F2; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Your Servers</h1>
+    <div id="servers"></div>
+    
+    <script>
+        async function fetchServers() {
+            const res = await fetch('/api/servers');
+            const servers = await res.json();
+            document.getElementById("servers").innerHTML = servers.map(s => 
+                `<div><b>${s.name}</b> - <a href="/dashboard/${s.id}" class="btn">Manage</a></div>`
+            ).join('');
+        }
+        fetchServers();
+    </script>
+</body>
+</html>
